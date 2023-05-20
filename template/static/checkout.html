@@ -1,0 +1,93 @@
+{{ define "content"}}
+
+<h2>Rekapitulace objednávky</h2>
+<h3>Kontaktní údaje</h3>
+Jméno a příjmení: {{ .Order.Checkout.Name }}<br>
+Mobil: {{ .Order.Checkout.MobileNumber}}<br>
+E-mail: {{ .Order.Checkout.Email }}<br>
+
+<!-- ------------------------------------------------------------------- -->
+
+<h3>Fakturační údaje</h3>
+Jméno a přijmení (název firmy): {{ .Order.Checkout.Billing.Name }}<br>
+Ulice a číslo popisné: {{ .Order.Checkout.Billing.Street }}<br>
+Město: {{ .Order.Checkout.Billing.City }}<br>
+PSČ: {{ .Order.Checkout.Billing.ZipCode }}<br>
+{{- if .Order.Checkout.Billing.ID }}
+IČO: {{ .Order.Checkout.Billing.ID }}<br>
+{{- end }}
+{{- if .Order.Checkout.Billing.TaxID }}
+DIČ: {{ .Order.Checkout.Billing.TaxID }}<br>
+{{- end }}
+
+<!-- ------------------------------------------------------------------- -->
+
+<table>
+  <caption>Košík</caption>
+  <thead>
+  <tr>
+    <th scope="col">Položka</th>
+    <th scope="col">Počet</th>
+    <th scope="col">Cena</th>
+    <th scope="col">Cena celkem</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{- $totalPrice := 0 }}
+  {{- range .Order.Cart }}
+  {{- $price := (mul .Quantity .Item.Price) }}
+  <tr>
+    <td data-label="Položka">{{ .Item.Description }}</td>
+    <td data-label="Počet">{{ .Quantity }}</td>
+    <td data-label="Cena">{{ .Item.Price }}</td>
+    <td data-label="Cena celkem">{{ $price }}</td>
+  </tr>
+  {{- $totalPrice = (add $totalPrice $price) }}
+  {{- end }}
+  </tbody>
+</table>
+<strong>Celková cena objednávky:</strong> {{ $totalPrice }},- Kč<br>
+
+<!-- ------------------------------------------------------------------- -->
+
+{{- if .Order.Checkout.Participants }}
+<h3>Údaje účastníci</h3>
+{{- end }}
+{{ range .Order.Checkout.Participants }}
+<h4>Kemp: {{ ($.Order.ItemDescByID .ItemID) }}</h4>
+<h4>{{ .OrdinalPos }}. účastník</h4>
+Jméno a příjmení: {{ .Name }}<br>
+Rodné číslo: {{ .ID }}<br>
+{{- if .Club }}
+Klub: {{ .Club }}<br>
+{{- end }}
+{{- if .WeightCategory }}
+Váhová kategorie: {{ .WeightCategory }}<br>
+{{- end }}
+{{- if .Belt }}
+Dosažený technický stupeň: {{ .Belt }}<br>
+{{- end }}
+Účastnické tričko: {{ .ShirtSize }}<br>
+{{- if .ExtraRequirements }}
+Speciální požadavky: {{ .ExtraRequirements }}<br>
+{{- end }}
+{{- end }}
+
+<!-- ------------------------------------------------------------------- -->
+
+{{ if .Order.Checkout.Note }}
+<h3>Poznámka</h3>
+<p>{{ .Order.Checkout.Note }}</p>
+{{ end }}
+
+<!-- ------------------------------------------------------------------- -->
+<br>
+<form action="/order" method="POST">
+  <label>
+    <input type="checkbox" id="t-and-c" name="t-and-c" value="agree" required checked>
+    <span class="checkable">Souhlasím s obchodními podmínkami</span>
+  </label><br>
+  <input type="submit" value="Odeslat">
+</form>
+
+{{ end }}

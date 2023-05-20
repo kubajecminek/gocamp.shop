@@ -1,0 +1,17 @@
+{{ define "content"}}
+
+<h2>Děkujeme za Vaší objednávku &#128157; &#129355;</h2>
+
+<p>
+  Do vaší emailové schránky - <strong>{{ .Order.Checkout.Email }}</strong> - právě míří potvrzovací e-mail. Pokud ne, prosíme kontaktujte nás na adrese 
+  <strong>{{ .SupportEmailAddress }}</strong>.<br><br>
+  Pro dokončení Vaší objednávky prosíme o úhradu částky <strong>{{ .Order.TotalPrice }},- Kč</strong> na číslo účtu <strong>{{ .BankAccount }}</strong>
+  s variabilním symbolem <strong>{{ .Order.VariableSymbol }}</strong>.
+</p>
+
+<h3>Platební údaje</h3>
+<strong>Číslo účtu</strong>: {{ .BankAccount }}<br>
+<strong>Variabilní symbol</strong>: {{ .Order.VariableSymbol }}<br>
+<strong>Částka:</strong> {{ .Order.TotalPrice }},- Kč
+
+{{ end }}

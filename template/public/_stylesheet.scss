@@ -1,0 +1,118 @@
+// Here go any variables you want to overwrite
+$picnic-primary: black;
+
+// Loads the Sass Math Module
+@use 'sass:math';
+
+// $picnic-transition: all 0s ease;
+
+@import '../../bower_components/picnic/src/themes/default/theme';
+@import '../../bower_components/picnic/src/vendor/compass-breakpoint/stylesheets/breakpoint';
+@import '../../bower_components/picnic/src/plugins/normalize/plugin';
+@import '../../bower_components/picnic/src/plugins/generic/plugin';
+@import '../../bower_components/picnic/src/plugins/fontello/plugin';
+@import '../../bower_components/picnic/src/plugins/label/plugin';
+@import '../../bower_components/picnic/src/plugins/button/plugin';
+@import '../../bower_components/picnic/src/plugins/nav/plugin';
+@import '../../bower_components/picnic/src/plugins/grid/plugin';
+@import '../../bower_components/picnic/src/plugins/input/plugin';
+@import '../../bower_components/picnic/src/plugins/select/plugin';
+@import '../../bower_components/picnic/src/plugins/radio/plugin';
+@import '../../bower_components/picnic/src/plugins/checkbox/plugin';
+@import '../../bower_components/picnic/src/plugins/card/plugin';
+
+* {
+  transition: unset !important;
+}
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+  line-height: 1.25;
+
+  caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+  }
+
+  tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+  }
+  th, td {
+    padding: .625em;
+    text-align: center;
+  }
+  th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+    table {
+        border: 0;
+
+        caption {
+          font-size: 1.3em;
+        }
+
+        thead {
+          border: none;
+          clip: rect(0 0 0 0);
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          width: 1px;
+        }
+
+        tr {
+          border-bottom: 3px solid #ddd;
+          display: block;
+          margin-bottom: .625em;
+        }
+
+        td {
+          border-bottom: 1px solid #ddd;
+          display: block;
+          font-size: .8em;
+          text-align: right;
+
+          &::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+          }
+
+          &:last-child {
+            border-bottom: 0;
+          }
+
+        }
+    }
+}
+
+.main-content {
+  padding: 10px;
+  max-width: 960px;
+  width: 100%;
+  margin:100px auto 500px;
+  font-size: 1em;
+}
+
+.responsive-img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+}

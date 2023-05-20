@@ -1,0 +1,100 @@
+{{ define "content"}}
+
+<article class="card">
+  <header>
+    <h2>Objednávkový formulář</h2>
+  </header>
+  <footer>
+    <form action="/checkout" method="POST">
+      <h3>Kontaktní údaje</h3>
+      <label for="name">Jméno a příjmení<span class="label error">povinné</span></label>
+      <input type="text" id="name" name="name" required maxlength="30">
+
+      <label for="mnumber">Mobil<span class="label error">povinné</span></label>
+      <input type="text" id="mnumber" name="mnumber" required maxlength="30">
+
+      <label for="email">E-mail<span class="label error">povinné</span></label>
+      <input type="email" id="email" name="email" required maxlength="80">
+
+      <!-- ------------------------------------------------------------------- -->
+
+      <h3>Fakturační údaje</h3>
+      <label for="bname">Jméno a přijmení (název firmy)<span class="label error">povinné</span></label>
+      <input type="text" id="bname" name="bname" required maxlength="30">
+
+      <label for="bstreet">Ulice a číslo popisné<span class="label error">povinné</span></label>
+      <input type="text" id="bstreet" name="bstreet" required maxlength="80">
+
+      <label for="bcity">Město<span class="label error">povinné</span></label>
+      <input type="text" id="bcity" name="bcity" required maxlength="30">
+
+      <label for="bzipcode">PSČ<span class="label error">povinné</span></label>
+      <input type="text" id="bzipcode" name="bzipcode" required maxlength="10">
+
+      <label for="binum">IČO</label>
+      <input type="text" id="binum" name="binum" maxlength="20">
+
+      <label for="btnum">DIČ</label>
+      <input type="text" id="btnum" name="btnum" maxlength="20">
+
+      <!-- ------------------------------------------------------------------- -->
+
+      {{ if $.Order.Cart.CampInside }}
+      <h3>Údaje účastníci</h3>
+      {{ range $key, $value := $.Order.Cart.CampsIterable }}
+      <h4>Kemp: {{ $key.Description }}</h4>
+      {{ range $index, $val := $value }}
+      <h4>{{ (add $index 1) }}. účastník</h4>
+      <label for="pname-{{ (add $index 1) }}-{{ $key.ID }}">Jméno a příjmení<span class="label error">povinné</span></label>
+      <input type="text" id="pname-{{ (add $index 1) }}-{{ $key.ID }}" name="pname-{{ (add $index 1) }}-{{ $key.ID }}" required maxlength="30">
+
+      <label for="pid-{{ (add $index 1) }}-{{ $key.ID }}">Rodné číslo<span class="label error">povinné</span></label>
+      <input type="text" id="pid-{{ (add $index 1) }}-{{ $key.ID }}" name="pid-{{ (add $index 1) }}-{{ $key.ID }}" required maxlength="20">
+
+      <label for="pclub-{{ (add $index 1) }}-{{ $key.ID }}">Domácí klub</label>
+      <input type="text" id="pclub-{{ (add $index 1) }}-{{ $key.ID }}" name="pclub-{{ (add $index 1) }}-{{ $key.ID }}" maxlength="30">
+
+      <label for="pweightCat-{{ (add $index 1) }}-{{ $key.ID }}">Váhová kategorie</label>
+      <input type="text" id="pweightCat-{{ (add $index 1) }}-{{ $key.ID }}" name="pweightCat-{{ (add $index 1) }}-{{ $key.ID }}" maxlength="10">
+
+      <label for="pbelt-{{ (add $index 1) }}-{{ $key.ID }}">Dosažený technický stupeň</label>
+      <select id="pbelt-{{ (add $index 1) }}-{{ $key.ID }}" name="pbelt-{{ (add $index 1) }}-{{ $key.ID }}">
+        <option value="Bílý">Bílý</option>
+        <option value="Žlutý">Žlužý</option>
+        <option value="Oranžový">Oranžový</option>
+        <option value="Zelený">Zelený</option>
+        <option value="Modrý">Modrý</option>
+        <option value="Hnědý">Hnědý</option>
+      </select>
+
+      <label for="pshirt-{{ (add $index 1) }}-{{ $key.ID }}">Účastnické tričko<span class="label error">povinné</span></label>
+      <select id="pshirt-{{ (add $index 1) }}-{{ $key.ID }}" name="pshirt-{{ (add $index 1) }}-{{ $key.ID }}" required>
+        <option value="XS">XS</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+      </select>
+
+      <label for="extraReq-{{ (add $index 1) }}-{{ $key.ID }}">Speciální požadavky</label>
+      <input type="text" id="extraReq-{{ (add $index 1) }}-{{ $key.ID }}" name="extraReq-{{ (add $index 1) }}-{{ $key.ID }}" maxlength="100">
+      {{ end }}
+      {{ end }}
+      {{ end }}
+
+      <!-- ------------------------------------------------------------------- -->
+
+      {{ if .Order.Cart.BackprintInside }}
+      <label for="note">Poznámky<span class="label error">povinné</span></label>
+      <textarea placeholder="Sem prosím vepište přezdívky na účastnická trika a jiné další připomínky." id="note" name="note" rows="4" cols="30" required maxlength="200"></textarea>
+      {{ end }}
+
+      <!-- ------------------------------------------------------------------- -->
+
+      <input type="submit" value="Rekapitulace objednávky">
+    </form>
+  </footer>
+</article>
+
+{{ end }}

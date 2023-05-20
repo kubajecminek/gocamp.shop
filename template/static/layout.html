@@ -1,0 +1,25 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="{{ .Stylesheet }}">
+    <link rel="icon" href="{{ .FavIcon }}" type="image/x-icon">
+  </head>
+  <body>
+    <nav>
+      <a href="/" class="brand">
+        <span>{{ .Name }}</span>
+      </a>
+    </nav>
+    <main class="main-content">
+      {{ template "content" .}}
+      <hr>
+      <p>Made with &#9829; and <a href="https://golang.org">Go</a></p>
+    </main>
+  </body>
+</html>
+{{ end }}

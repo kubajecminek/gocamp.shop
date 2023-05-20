@@ -1,0 +1,51 @@
+{{ define "content"}}
+
+{{ if .Order.Cart }}
+<table>
+  <caption>Košík</caption>
+  <thead>
+  <tr>
+    <th scope="col">Položka</th>
+    <th scope="col">Počet</th>
+    <th scope="col">Přidat</th>
+    <th scope="col">Cena celkem</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{- $totalPrice := 0 }}
+  {{- range .Order.Cart }}
+  {{- $price := (mul .Quantity .Item.Price) }}
+  <tr>
+    <td data-label="Položka">{{ .Item.Description }}</td>
+    <td data-label="Počet">{{ .Quantity }}</td>
+    <td data-label="Přidat"><a href="/cart/add/{{ .Item.ID }}">&#10133;</a> | <a href="/cart/remove/{{ .Item.ID }}">&#10134;</a></td>
+    <td data-label="Cena celkem">{{ $price }}</td>
+  </tr>
+  {{- $totalPrice = (add $totalPrice $price) }}
+  {{- end }}
+  </tbody>
+</table>
+<strong>Celková cena objednávky:</strong> {{ $totalPrice }},- Kč<br>
+<a href="/checkout" class="button">Přejít k objednávce</a>
+<hr>
+{{ end }}
+
+<!-- ------------------------------------------------------------------- -->
+
+<h2>Naše nabídka</h2>
+{{ range .Sortiment }}
+<div class="flex two">
+  <div>
+    <img alt="obrázek-produktu" src="{{ .Img }}" class="responsive-img">
+  </div>
+  <div>
+    <span>
+        {{ .Description }}<br>
+        {{ .Price }},- Kč<br>
+        <a href="/cart/add/{{ .ID }}" class="button">Do košíku</a>
+    </span>
+  </div>
+</div>
+{{ end }}
+
+{{ end }}
