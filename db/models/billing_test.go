@@ -16,7 +16,6 @@ func TestBillingValid(t *testing.T) {
 	}{
 		{"empty", Billing{}, validator.ErrZeroValue},
 		{"missingOne", Billing{Name: "John", Street: "Downing Street 2", City: "London", ZipCode: "", ID: "", TaxID: ""}, validator.ErrZeroValue},
-		//		{"wrongID", Billing{Name: "John", Street: "Downing Street 2", City: "London", ZipCode: "1234 56", ID: "ABC", TaxID: "CZ1234"}, validator.ErrRegexp},
 		{"allGood", Billing{Name: "John", Street: "Downing Street 2", City: "London", ZipCode: "1234 56", ID: "123", TaxID: "CZ1234"}, nil},
 		{"maxLenExceeded", Billing{Name: "1234567890123456789012345678901"}, validator.ErrMaxLen},
 	}

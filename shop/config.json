@@ -1,0 +1,23 @@
+{
+  "name": "Our shop",
+  "bankAccount": "<bank-account>",
+  "favIcon": "<favicon-url>",
+  "projectID": "<bq-project-id>",
+  "email": {
+    "host": "<smtp-host>",
+    "port": 587,
+    "senderAddress": "john@shop.com",
+    "senderName": "David from our shop"
+  },
+  "stylesheet": "/public/stylesheet.css",
+  "items": [
+    {
+      "id": 1,
+      "name": "kemp-1",
+      "description": "Winter camp | 1.–7. 1. 2020 (Prague)",
+      "category": "winter_camp",
+      "price": 5000,
+      "img": "<img-url>"
+    }
+  ]
+}
